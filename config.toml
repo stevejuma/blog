@@ -1,0 +1,14 @@
+baseURL = "https://blog.ju.ma/"
+languageCode = "en-gb"
+title = "Juma"
+theme = "tale-hugo"
+pygmentsCodeFences = true
+pygmentsStyle = "manni"
+enableEmoji = true
+
+[Author]
+	name = "Juma"
+
+[params]
+	description = "The blog of Steve Juma, software developer"
+	css = ["custom.css"]

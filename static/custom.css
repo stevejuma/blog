@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:500");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+div.highlight {
+    background-color: #f0f3f3;
+}
+
+div.highlight code{
+    font-family: "Source Code Pro", monospace !important;
+    font-size: 0.9em;
+}
+
+.nav a.fa {
+    font-family: "FontAwesome"
+}
