@@ -36,8 +36,8 @@ spec:
           sh "curl -sSL https://github.com/gohugoio/hugo/releases/download/v${env.HUGO_VERSION}/hugo_${env.HUGO_VERSION}_Linux-64bit.tar.gz | tar -v -C ./ hugo -xz"
           sh """{ \
             echo '[default]'; \
-            echo 'access_key=${env.S3_ACCESS_KEY_ID}'; \
-            echo 'secret_key=${env.S3_SECRET_ACCESS_KEY}'; \
+            echo 'access_key=$S3_ACCESS_KEY_ID'; \
+            echo 'secret_key=$S3_SECRET_ACCESS_KEY'; \
             } > ~/.s3cfg
           """
 
