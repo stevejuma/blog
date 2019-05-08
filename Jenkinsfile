@@ -25,7 +25,7 @@ spec:
   stages {
     stage('Deploy Blog') {
       steps {
-        container('maven') {
+        container('blog') {
           sh """ apk --no-cache add \
                 ca-certificates \
                 curl \
