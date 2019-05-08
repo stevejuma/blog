@@ -41,7 +41,8 @@ spec:
             } > ~/.s3cfg
           """
 
-          sh "./hugo && cd public && s3cmd sync --delete-removed -P . s3://blog.ju.ma/"
+          sh "rm -rf ./public ./hugo"
+          sh "cd public; s3cmd sync --delete-removed -P . s3://blog.ju.ma/"
         }
       }
     }
