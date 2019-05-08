@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: blog
-    image: alpine
+    image: stevejuma/hugo:0.55
     command: ['cat']
     tty: true
     envFrom:
@@ -26,14 +26,6 @@ spec:
     stage('Deploy Blog') {
       steps {
         container('blog') {
-          sh """ apk --no-cache add \
-                ca-certificates \
-                curl \
-                tar \
-                py-pip \
-                && pip install s3cmd
-          """
-          sh "[ ! -f ./hugo ] && curl -sSL https://github.com/gohugoio/hugo/releases/download/v${env.HUGO_VERSION}/hugo_${env.HUGO_VERSION}_Linux-64bit.tar.gz | tar -v -C ./ hugo -xz"
           sh """{ \
             echo '[default]'; \
             echo 'access_key=\$S3_ACCESS_KEY_ID'; \
@@ -41,7 +33,7 @@ spec:
             } > ~/.s3cfg
           """
 
-          sh "rm -rf ./public && ./hugo"
+          sh "rm -rf ./public && hugo"
           sh "[ -d ./public ] && s3cmd sync --delete-removed -P ./public s3://blog.ju.ma/"
         }
       }
