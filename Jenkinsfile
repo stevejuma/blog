@@ -31,9 +31,10 @@ spec:
                 curl \
                 tar \
                 py-pip \
+                tree \
                 && pip install s3cmd
           """
-          sh "curl -sSL https://github.com/gohugoio/hugo/releases/download/v${env.HUGO_VERSION}/hugo_${env.HUGO_VERSION}_Linux-64bit.tar.gz | tar -v -C ./ hugo -xz"
+          sh "[ ! -f ./hugo ] && curl -sSL https://github.com/gohugoio/hugo/releases/download/v${env.HUGO_VERSION}/hugo_${env.HUGO_VERSION}_Linux-64bit.tar.gz | tar -v -C ./ hugo -xz"
           sh """{ \
             echo '[default]'; \
             echo 'access_key=\$S3_ACCESS_KEY_ID'; \
@@ -42,7 +43,7 @@ spec:
           """
 
           sh "rm -rf ./public && ./hugo"
-          sh "cd public; s3cmd sync --delete-removed -P . s3://blog.ju.ma/"
+          sh "cd ./public; tree ./; s3cmd sync --delete-removed -P . s3://blog.ju.ma/"
         }
       }
     }
