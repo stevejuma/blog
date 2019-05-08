@@ -18,6 +18,10 @@ spec:
     }
   }
 
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+
   environment {
       HUGO_VERSION = "0.55.5"
   }
