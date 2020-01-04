@@ -38,7 +38,7 @@ spec:
           """
 
           sh "rm -rf ./public && hugo"
-          sh "[ -d ./public ] && s3cmd sync --delete-removed -P ./public s3://blog.ju.ma/"
+          sh "[ -d ./public ] && cd public && s3cmd sync --delete-removed -P ./public s3://blog.ju.ma/"
         }
       }
     }
