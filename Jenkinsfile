@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: blog
-    image: stevejuma/hugo:0.55
+    image: stevejuma/hugo:0.62.1
     command: ['cat']
     tty: true
     envFrom:
@@ -23,7 +23,7 @@ spec:
   }
 
   environment {
-      HUGO_VERSION = "0.55.5"
+      HUGO_VERSION = "0.62.1"
   }
 
   stages {

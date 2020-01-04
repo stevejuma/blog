@@ -10,12 +10,21 @@ an on-prem Kubernetes install. The rage currently seems to be on running
 `Jenkins X`, but my previous attempts at trying to get it to work weren't 
 successsful, will probably be the subject of another blog post. 
 
-
 ```bash
 # Create a namespace to hold your configuration
 kubectl create namespace ci
-# Create a Jenkins docker configuration 
-kubectl create -n ci secret generic jenkins-docker-cfg --from-file=~/.docker/config.json
+# Create credentials for any private registries
+kubectl create -n ci secret docker-registry regcred \
+    --docker-server=<your-registry-server> \
+    --docker-username=<your-name> \
+    --docker-password=<your-pword> \
+    --docker-email=<your-email>
+# Or if you are using gcr
+kubectl create -n ci secret docker-registry gcr-regcred \
+    --docker-server=eu.gcr.io \
+    --docker-username=_json_key \
+    --docker-password="$(cat /path/to/gcr-account.json)" \
+    --docker-email=my@email.com
 ```
 
 Create a service account for Jenkins that will provide credentials required for
@@ -156,6 +165,8 @@ spec:
         fsGroup: 1000
       imagePullSecrets:
         - name: regcred
+      # If you are using gcr  
+      # - name: gcr-regcred
       volumes:
         - name: kubectl-jenkins-context
           configMap:
@@ -170,8 +181,28 @@ spec:
             claimName: jenkins-pvc
 ```
 
+Create a service for the Jenkins deployment.
 
-Finally create an ingress resource if you need one. 
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  namespace: ci
+spec:
+  selector:
+    app: jenkins
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+    - port: 50000
+      targetPort: 50000
+      name: jnlp
+```
+
+Finally create an ingress resource if you need one. This assumes you have cert-manager
+deployed in the cluster for issuing certificates
 
 ```yaml
 apiVersion: extensions/v1beta1
