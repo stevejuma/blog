@@ -1,7 +1,8 @@
 ---
-title: "Kubernetes Jenkins"
+title: Kubernetes Jenkins
 date: 2019-05-04T17:46:33+01:00
 draft: false
+description: Jenkins with kubernetes
 ---
 There are alot of documents on the web on how to setup Kubernetes and 
 even more on how to run a Jenkins instance. I have however been unable
