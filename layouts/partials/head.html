@@ -21,6 +21,7 @@
 	{{- $cssOptions		:= cond ($inServerMode) (dict "targetPath" $cssTarget "enableSourceMap" true) (dict "targetPath" $cssTarget "outputStyle" "compressed") }}
 	{{- $style			:= resources.Get "scss/tale.scss" | toCSS $cssOptions }}
 	<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
 	{{ range .Site.Params.css -}}
 	<link rel="stylesheet" href="{{ . | relURL }}">
 	{{ end -}}
@@ -33,4 +34,14 @@
 	<!-- RSS -->
 	<link href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" rel="alternate"
 		type="application/rss+xml" title="{{ .Site.Title }}" />
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47891517-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-47891517-1');
+	</script>
 </head>
