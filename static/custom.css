@@ -11,5 +11,6 @@ div.highlight code{
 }
 
 .nav a.fa {
-    font-family: "FontAwesome"
+    font-family: "FontAwesome";
+    color: #4788f2;
 }
